@@ -50,7 +50,7 @@ I have found two possible combinations:
 The elbow-like shape at 3 number of clusters is indicating that I should choose that amount of clusters. 
 The choice for three clusters results in the following scatterplot: 
 ![](visuals/kmeans_2d_scatter_a1ymean_a2xmean.PNG)
-This feature combination reaches a silhouette score of 0.74. Even though one cluster only contains a couple of datapoints, the claim could be made that those three form a cluster on themselves. Which would mean that they would be failing in another way than the bearings in the other two clusters. Their failure is only more rare. Of course this claim would have to be checked againts the reality. 
+This feature combination reaches a silhouette score of 0.74. Even though one cluster only contains a couple of datapoints, the claim could be made that those three form a cluster on themselves. Which would mean that they would be failing in another way than the bearings in the other two clusters. Their type of failure is only more rare. Of course this claim would have to be checked againts the reality. 
 
 ### features: a2_x_cumul + a2_x_mean
 ![](visuals/2.elbow_kmeans_second_option.PNG)
