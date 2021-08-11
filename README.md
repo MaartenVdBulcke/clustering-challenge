@@ -2,7 +2,7 @@
 
 
 # Description
-  This was an assignment during our training at BeCode.  
+  This was an assignment during my training at BeCode.  
   The goal was to get a feel for clustering in machine learning.
   For this we used a self-created dataframe with features extracted from a database from <a href="https://www.kaggle.com/isaienkov/bearing-classification" target="_blank">Kaggle</a>, on testing bearings.  
   Our job was to cluster the data so as to identify different types of failures of the bearings. 
@@ -14,8 +14,8 @@
 
 ## Databases
 I made use of two databases that were created by fellow-students and/or myself in a previous project: 
-* link to first
-* link to second
+* <a href "data/bearing_grouped_axes_cumulative.csv"> dataset with six features </a>
+* <a href "data/bearings_final_master.csv"> dataset with 54 features </a> 
 
 ## Packages used
 * pandas
@@ -23,21 +23,30 @@ I made use of two databases that were created by fellow-students and/or myself i
 * itertools
 * matplotlib.pyplot
 * seaborn
-* plotly
 * sklearn
+
 
 # Usage
 | File                        | Description                                                     |
 |-----------------------------|-----------------------------------------------------------------|
 | main.py                   | File containing Python code. The whole proces a manipulating the dataframes, investigating which features to combine and how many clusters are ideal. Also model evaluation |
-| utils/model.py              | File containing Python code, using ML - Random Forest.   <br>Fitting our data to the model and use to it make predictions. |
-| utils/data_manipulation.py | File containing Python code.<br>Functions made for ease of use in a team enviroment. |
-| utils/plotting.py           | File containing Python code.<br>Used for getting to know the data.<br>Made plots to find correlations between features. |
-| csv_output                  | Folder containing some of the csv-files we used for our coding.<br>Not all of our outputted files are in here,   <br>since Github has a file limit of 100MB. |
-| visuals                     | Folder containing plots we deemed interesting and helped us gain   <br>insights on the data. |
+| utils/data_manipulation.py | File containing Python code. Contains functions to manipulate the starting datasets so to be able to research the presence of possible clusters for failed bearings. |
+| utils/plotting.py           | File containing Python code. Contains code for producing several types of plots with data from the datasets. Plots are used for exploration and evaluation. |
+| csv_output                  | Folder containing some of the csv-files I used for my coding. |
+| visuals                     | Folder containing plots I saved because they backed up my conclusions. |
 
 # Which features to combine for effective clustering
 ## two features
+This was my proces to find the best two features for clustering: 
+* I automated the combination of each of the present features and looked first at the combinations with the highest silhouette score for a kmeans-clustering model. 
+* I visualised these combinations and finally chose a combination of features with a silhouette score as high as possible, and with a 2d-scatterplot visually showing a certain amount of clustering. 
+* Finally, I plotted the numbers of clusters versus the cluster-distances, to be able to determine the suiting amount of clusters. 
+
+I have found two possible combinations: 
+### a1_y_mean + a2_x_mean
+
+
+
 | Column name of feature | Change made                  | Reason                                                                                        |
 |------------------------|------------------------------|-----------------------------------------------------------------------------------------------|
 | timestamp              | Only keeping rows above 0,25 | We found some outliers where the "rpm" and "hz" values spiked in the first parts of the test.  <br>With the use of plotting, we discovered a cut off point. |
