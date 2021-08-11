@@ -60,7 +60,7 @@ This feature combination reaches a silhouette score of 0.58
 
 
 ## three features
-When combining three features, it is still possible to visualise a clustering (with a 3d-scatterplot). Interpretation is getting harder, so I will introduce an other tool for decision-making in clustering: silhouette plotting.
+When combining three features, it is still possible to visualise a clustering (with a 3d-scatterplot). Interpretation is getting harder, so I will use another tool for decision-making in clustering: silhouette plotting.
 
 The process of finding three features combined was therefore slightly altered: 
 * I automated the combination of each of the present features and looked first at the combinations with the highest silhouette score for a kmeans-clustering model.
@@ -70,13 +70,14 @@ The process of finding three features combined was therefore slightly altered:
 The chosen features are a2_y_mean, a1_x_ff_range, a1_x_fft_max
 
 ![](visuals/3.elbow_three_features.PNG)
+
 According to this elbow plot, the ideal number of clusters is, once again, 3. 
 This choice can be backed up taking a look at some silhouette plots for this feature combination. 
 
 Let's first look at the silhouette plot for 3 clusters: 
 
 ![](visuals/3.silhouette_plot_3_clusters.PNG)
-We can see that the average silhouette score is somewhat like 0.64. We can see that no sample has been given a negative score (which means that they are all clustered with their closest cluster). All of the clusters cross the red dotted line of the average silhouette score. Which is also a good indicator. 
+We can see that the average silhouette score is about 0.64. We can see that no sample has been given a negative score (which means that they are all clustered with their closest cluster). All of the clusters cross the red dotted line of the average silhouette score. Which is also a good indicator. 
 
 Let's now compare to the silhouette plot for the same feature combination but for only 2 clusters: 
 ![](visuals/3.silhouette_plot_2_clusters.PNG)
@@ -96,13 +97,13 @@ Based on this analysis, I would conclude there are 3 main types of bearing failu
 
 
 ## six features
-A first glimpse at silhouette plots with six features is that is silhouette scores are not improving. Probably it will not be easy to find a good combination of six features. 
+A first glimpse at silhouette plots with six features learns that silhouette scores are not improving. Probably it will not be easy to find a good combination of six features. 
 
 A problem with the search for a good combination of six features is that it takes a while to compute all the different feature combinations. A choice has to be made: 
-* will I run all the feature combinations, in that way ensuring that I will not miss the good one, if that one exists. The downside is that it will take some time going through the results of all those combinations. 
+* will I run all the feature combinations, in that way ensuring that I will not miss the good one, if that one exists. The downside is that it will take some time going through the results of all those combinations too. 
 * will I drop a certain amount of features to speed up the combination loop? The problem with that is: how do choose the features to drop? There is randomness in play there. 
 
-In the main.py file a first attempt at investigating six features is done. Unfortunately this is still a work in progress.  
+In the main.py file, a first attempt at investigating six features is being made. Unfortunately, this is still a work in progress.  
 
 
 # The bearings test
