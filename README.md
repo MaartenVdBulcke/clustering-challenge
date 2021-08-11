@@ -14,8 +14,8 @@
 
 ## Databases
 I made use of two databases that were created by fellow-students and/or myself in a previous project: 
-* <a href "data/bearing_grouped_axes_cumulative.csv"> dataset with six features </a>
-* <a href "data/bearings_final_master.csv"> dataset with 54 features </a> 
+* <a href="data/bearing_grouped_axes_cumulative.csv"> dataset with six features </a>
+* <a href="data/bearings_final_master.csv"> dataset with 54 features </a> 
 
 ## Packages used
 * pandas
