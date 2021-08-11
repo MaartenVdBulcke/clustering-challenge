@@ -1,0 +1,7 @@
+assets/
+bearing_clustering
+*.ipynb
+our_dataset.py
+ipynb_checkpoints/
+bearing_final_df.csv
+assets/
