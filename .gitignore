@@ -1,0 +1,12 @@
+assets/
+bearing_clustering
+*.ipynb
+our_dataset.py
+ipynb_checkpoints/
+bearing_final_df.csv
+/csv_output/.ipynb_checkpoints/
+/visuals/.ipynb_checkpoints/
+/bearing_clustering.md
+/df3_plotly.py
+/play.py
+/stepwise.py
