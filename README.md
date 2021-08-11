@@ -44,12 +44,19 @@ This was my process to find the best two features for clustering:
 
 I have found two possible combinations: 
 ### features: a1_y_mean + a2_x_mean
+
 ![](visuals/kmeans_model_on_features_a1_y_mean_and_a2_x_mean.png)
+The elbow-like shape at 3 number of clusters is indicating that I should choose that amount of clusters. 
+The choise for three clusters results in the following scatterplot: 
 ![](visuals/kmeans_2d_scatter_a1ymean_a2xmean.PNG)
+This feature combination reaches a silhouette score of 0.74. Even though one cluster only contains a couple of datapoints, the claim could be made that those three form a cluster on themselves. Which would mean that they would be failing in another way than the bearings in the other two clusters. Their failure is only more rare. Of course this claim would have to be checked againts the reality. 
 
 ### features: a2_x_cumul + a2_x_mean
 ![](visuals/2.elbow_kmeans_second_option.PNG)
+This time the elbow shape is not as sharp as before, but it is clearly visible. Again I concluded to take a cluster amount of three. Resulting in the following scatterplot: 
 ![](visuals/2.scatterplot_kmeans_second_option.PNG)
+This feature combination reaches a silhouette score of 0.58
+
 
 ## three features
 When combining three features, it is still possible to visualise a clustering (with a 3d-scatterplot). Interpretation is getting harder, so I will introduce an other tool for decision-making in clustering: silhouette plotting.
@@ -57,7 +64,33 @@ When combining three features, it is still possible to visualise a clustering (w
 The process of finding three features combined was therefore slightly altered: 
 * I automated the combination of each of the present features and looked first at the combinations with the highest silhouette score for a kmeans-clustering model.
 * I visualised these combinations with a silhouette plot and finally chose a combination of features with a silhouette score as high as possible, and with a reasonable silhouette plot.
-Finally, I plotted the numbers of clusters versus the cluster-distances, to be able to determine the suiting amount of clusters (elbow plotting).
+* Finally, I plotted the numbers of clusters versus the cluster-distances, to be able to determine the suiting amount of clusters (elbow plotting).
+
+The chosen features are a2_y_mean, a1_x_ff_range, a1_x_fft_max
+
+![](visuals/3.elbow_three_features.PNG)
+According to this elbow plot, the ideal number of clusters is, once again, 3. 
+This choice can be backed up taking a look at some silhouette plots for this feature combination. 
+
+Let's first look at the silhouette plot for 3 clusters: 
+
+![](visuals/3.silhouette_plot_3_clusters.PNG)
+We can see that the average silhouette score is somewhat like 0.64. We can see that no sample has been given a negative score (which means that they are all clustered with their closest cluster). All of the clusters cross the red dotted line of the average silhouette score. Which is also a good indicator. 
+
+Let's now compare to the silhouette plot for the same feature combination but for only 2 clusters: 
+![](visuals/3.silhouette_plot_2_clusters.PNG)
+We see that some samples in cluster 0 get negative values. The average silhouette score (see the red dotted line) is also lower than the previous plot of 3 clusters. 
+Therefore 2 clusters would not be a good choice. 
+
+Compared to the silhouette plot for 4 clusters, it is more ambiguous: 
+
+![](visuals/3.silhouette_plot_4_clusters.PNG)
+
+The samples in this plot seem to be well divided. Each plot crossed the average silhouette score with ease. So a choice for 4 clusters could be defended. 
+
+Personally I would let the choice between 3 or 4 clusters be decided by the silhouette score: that score is higher with 3 clusters than with four clusters. 
+
+Based on this analysis, I would conclude there are 3 main types of bearing failures. Two types are common, one type is more rare. 
 
 
 
@@ -71,16 +104,6 @@ Finally, I plotted the numbers of clusters versus the cluster-distances, to be a
 ## The bearings test
 ![bearing test machine, image to be pushed](visuals/bearing_test_machine_set_up.jpg)
 
-## Plot showing the min-max-difference of every axis, on every bearing.
-
-![](visuals/vibration_spread_differences_on_all_axes.png)
-
-## Plot that gave us the idea to look into the first seconds.
-![](visuals/control_vs_good_vs_bad_Y_Speed_Hz.png)
-
-## Plot that showed possible clusters
-Ready for future exploration
-![](visuals/scatter_cluster_ready.png)
 
 # Links 
 I made use of dataframes created in two other projects: 
