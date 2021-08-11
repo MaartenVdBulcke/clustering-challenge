@@ -38,13 +38,6 @@ if __name__=='__main__':
     plot_one_2d_with_silhouette_score(two_feat_df, failed_bearings_normal, 300)
     loop_over_all_2d_scatterplots(two_feat_df, failed_bearings_normal)
 
-    # ################################################
-    # choosing features based on itertools results: #
-    # plot 2d every combination, starting from highest silhouette score to lowest
-    # choose a plot that best shows clusters
-    # decide on amount of clusters with elbow       #
-    # ################################################
-
     df1 = failed_bearings_normal[['a1_y_mean', 'a2_x_mean']]
     n_clusters = [2, 3, 4, 5, 6]
     plot_elbow_kmeans(df1, n_clusters, 'kmeans model on features a1_y_mean and a2_x_mean')
@@ -55,19 +48,15 @@ if __name__=='__main__':
     plot_elbow_kmeans(df2, n_clusters, 'kmeans model on features a2_x_cumul and a2_x_mean')
     plot_scatter_cluster(df2, 3, 'clustering with k-means')
 
-    # #############################################################
-    # # itertools to find best scores for three features combined #
-    # #############################################################
+    # ###########################################################
+    # itertools to find best scores for three features combined #
+    # ###########################################################
+
     df_three_features = create_dataframe_three_features(failed_bearings_normal,
                                                         columns_list, clusters_amount, 3)
     df_three_features.sort_values(by=['silhouette_score'], ascending=False, inplace=True)
     df_three_features.to_csv('csv_output/scores_three_features.csv')
     three_feat_df = pd.read_csv('csv_output/scores_three_features.csv')
-
-    ################################################
-    # choosing features based on itertools results #
-    # with silhouette plotting                     #
-    ################################################
 
     n_clusters = [2, 3, 4, 5, 6]
     for idx, row in three_feat_df.iterrows():
