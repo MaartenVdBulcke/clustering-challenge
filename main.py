@@ -93,5 +93,68 @@ if __name__=='__main__':
     df3 = failed_bearings_normal[['a2_y_mean', 'a1_x_ff_range', 'a1_x_fft_max']]
     plot_elbow_kmeans(df3, n_clusters, 'elbow plot for three combined features: a2_y_mean, a1_x_ff_range, a1_x_fft_max')
 
+    ##############################
+    # try 6 features: unfinished #
+    ##############################
 
-    # try 6 features
+    # columns = failed_bearings_normal.columns[:10]
+    # sil_scores = []
+    # cluster_numbers = []
+    # labels_list = []
+    # feature_1_all = []
+    # feature_2_all = []
+    # feature_3_all = []
+    # feature_4_all = []
+    # feature_5_all = []
+    # feature_6_all = []
+    #
+    # n_clusters = [2, 3, 4]
+    # combo_6 = list(itertools.combinations(columns, 6))
+    # index = 0
+    # for f1, f2, f3, f4, f5, f6 in combo_6:
+    #     df_six = failed_bearings_normal[[f1, f2, f3, f4, f5, f6]]
+    #     for cluster_nr in n_clusters:
+    #         kmeans = KMeans(random_state=42, n_clusters=cluster_nr, init='k-means++')
+    #         kmeans.fit(df_six)
+    #         sil_score = silhouette_score(df_six, kmeans.labels_)
+    #         sil_scores.append(sil_score)
+    #         feature_1_all.append(f1)
+    #         feature_2_all.append(f2)
+    #         feature_3_all.append(f3)
+    #         feature_4_all.append(f4)
+    #         feature_5_all.append(f5)
+    #         feature_6_all.append(f6)
+    #         cluster_numbers.append(cluster_nr)
+    #         labels_list.append(kmeans.labels_.tolist())
+    #         print('index', index)
+    #         index += 1
+    #
+    # df_six_features = pd.DataFrame({
+    #     'silhouette_score': sil_scores,
+    #     'feature_1': feature_1_all,
+    #     'feature_2': feature_2_all,
+    #     'feature_3': feature_3_all,
+    #     'feature_4': feature_4_all,
+    #     'feature_5': feature_5_all,
+    #     'feature_6': feature_6_all,
+    #     'cluster_number': cluster_numbers,
+    #     'labels': labels_list
+    # })
+
+    # df_six_features.sort_values(by=['silhouette_score'], ascending=False, inplace=True)
+    # df_six_features.to_csv('csv_output/scores_six_features.csv')
+
+    # n_clusters = [2, 3, 4, 5, 6]
+    # for idx, row in df_six_features.iterrows():
+    #     f1 = row.feature_1
+    #     f2 = row.feature_2
+    #     f3 = row.feature_3
+    #     f4 = row.feature_4
+    #     f5 = row.feature_5
+    #     f6 = row.feature_6
+    #     df = failed_bearings_normal[[f1, f2, f3, f4, f5, f6]]
+    #     plot_silhouette_samples(df, n_clusters, idx)
+
+    # df6 = failed_bearings_normal[[]]    # ADD SIX FEATURES
+    # plot_elbow_kmeans(df6, n_clusters, 'elbow plot for six combined features')
+

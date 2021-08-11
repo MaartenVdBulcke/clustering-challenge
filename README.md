@@ -46,8 +46,9 @@ I have found two possible combinations:
 ### features: a1_y_mean + a2_x_mean
 
 ![](visuals/kmeans_model_on_features_a1_y_mean_and_a2_x_mean.png)
+
 The elbow-like shape at 3 number of clusters is indicating that I should choose that amount of clusters. 
-The choise for three clusters results in the following scatterplot: 
+The choice for three clusters results in the following scatterplot: 
 ![](visuals/kmeans_2d_scatter_a1ymean_a2xmean.PNG)
 This feature combination reaches a silhouette score of 0.74. Even though one cluster only contains a couple of datapoints, the claim could be made that those three form a cluster on themselves. Which would mean that they would be failing in another way than the bearings in the other two clusters. Their failure is only more rare. Of course this claim would have to be checked againts the reality. 
 
@@ -95,13 +96,16 @@ Based on this analysis, I would conclude there are 3 main types of bearing failu
 
 
 ## six features
-### How many clusters
+A first glimpse at silhouette plots with six features is that is silhouette scores are not improving. Probably it will not be easy to find a good combination of six features. 
+
+A problem with the search for a good combination of six features is that it takes a while to compute all the different feature combinations. A choice has to be made: 
+* will I run all the feature combinations, in that way ensuring that I will not miss the good one, if that one exists. The downside is that it will take some time going through the results of all those combinations. 
+* will I drop a certain amount of features to speed up the combination loop? The problem with that is: how do choose the features to drop? There is randomness in play there. 
+
+In the main.py file a first attempt at investigating six features is done. Unfortunately this is still a work in progress.  
 
 
-
-# Extra visuals
-
-## The bearings test
+# The bearings test
 ![bearing test machine, image to be pushed](visuals/bearing_test_machine_set_up.jpg)
 
 
