@@ -44,12 +44,12 @@ This was my proces to find the best two features for clustering:
 
 I have found two possible combinations: 
 ### features: a1_y_mean + a2_x_mean
+![](visuals/kmeans_model_on_features_a1_y_mean_and_a2_x_mean.png)
 ![](visuals/kmeans_2d_scatter_a1ymean_a2xmean.PNG)
-![](visuals/kmeans model on features a1_y_mean and a2_x_mean.png)
 
 ### features: a2_x_cumul + a2_x_mean
 ![](visuals/2.elbow_kmeans_second_option.PNG)
-![](visuals/scatterplot_kmeans_second_option.PNG)
+![](visuals/2.scatterplot_kmeans_second_option.PNG)
 
 
 | Column name of feature | Change made                  | Reason                                                                                        |
