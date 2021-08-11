@@ -37,10 +37,10 @@ I made use of two databases that were created by fellow-students and/or myself i
 
 # Which features to combine for effective clustering
 ## two features
-This was my proces to find the best two features for clustering: 
+This was my process to find the best two features for clustering: 
 * I automated the combination of each of the present features and looked first at the combinations with the highest silhouette score for a kmeans-clustering model. 
 * I visualised these combinations and finally chose a combination of features with a silhouette score as high as possible, and with a 2d-scatterplot visually showing a certain amount of clustering. 
-* Finally, I plotted the numbers of clusters versus the cluster-distances, to be able to determine the suiting amount of clusters. 
+* Finally, I plotted the numbers of clusters versus the cluster-distances, to be able to determine the suiting amount of clusters (elbow plotting). 
 
 I have found two possible combinations: 
 ### features: a1_y_mean + a2_x_mean
@@ -51,17 +51,14 @@ I have found two possible combinations:
 ![](visuals/2.elbow_kmeans_second_option.PNG)
 ![](visuals/2.scatterplot_kmeans_second_option.PNG)
 
-
-| Column name of feature | Change made                  | Reason                                                                                        |
-|------------------------|------------------------------|-----------------------------------------------------------------------------------------------|
-| timestamp              | Only keeping rows above 0,25 | We found some outliers where the "rpm" and "hz" values spiked in the first parts of the test.  <br>With the use of plotting, we discovered a cut off point. |
-
-![](visuals/Exp_24_RPM_reading_error.png)
-
-### How many clusters
-
 ## three features
-### How many clusters
+When combining three features, it is still possible to visualise a clustering (with a 3d-scatterplot). Interpretation is getting harder, so I will introduce an other tool for decision-making in clustering: silhouette plotting.
+
+The process of finding three features combined was therefore slightly altered: 
+* I automated the combination of each of the present features and looked first at the combinations with the highest silhouette score for a kmeans-clustering model.
+* I visualised these combinations with a silhouette plot and finally chose a combination of features with a silhouette score as high as possible, and with a reasonable silhouette plot.
+Finally, I plotted the numbers of clusters versus the cluster-distances, to be able to determine the suiting amount of clusters (elbow plotting).
+
 
 
 ## six features
