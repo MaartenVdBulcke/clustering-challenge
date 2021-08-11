@@ -1,3 +1,5 @@
+from ast import literal_eval
+
 import pandas as pd
 import itertools
 from sklearn.cluster import KMeans
@@ -87,3 +89,18 @@ def create_dataframe_three_features(df: pd.DataFrame, columns: list,
     })
 
     return df_three_features
+
+
+def drop_rows_twoclusters_few_datapoints(df: pd.DataFrame):
+    df_to_return = df.copy()
+    threshold = 10
+    for idx, row in df_to_return.iterrows():
+        if row.cluster_number == 2:
+            labels = literal_eval(row.labels)
+            labels = pd.Series(labels)
+            vc = labels.value_counts()
+            for value in vc.values:
+                if value < threshold:
+                    df_to_return.drop(df_to_return.index[idx], inplace=True)
+
+    return df_to_return

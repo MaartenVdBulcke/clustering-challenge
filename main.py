@@ -28,8 +28,6 @@ if __name__=='__main__':
 
     columns_list = failed_bearings_normal.columns
     clusters_amount = [2, 3, 4, 5]
-
-
     df_two_features = create_dataframe_selected_features_sorted_by_score(failed_bearings_normal, columns_list,
                                                                          clusters_amount, 2)
     df_two_features.sort_values(by=['silhouette_score'], ascending=False, inplace=True)
@@ -64,41 +62,36 @@ if __name__=='__main__':
                                                         columns_list, clusters_amount, 3)
     df_three_features.sort_values(by=['silhouette_score'], ascending=False, inplace=True)
     df_three_features.to_csv('csv_output/scores_three_features.csv')
-
     three_feat_df = pd.read_csv('csv_output/scores_three_features.csv')
-
-
-    #####################################################
-    # we can still look in 3d, but harder to interpret.   #
-    # we still use elbow, but also introduce new metrics  #
-    #####################################################
-
-    row_number = 54000
-    row = three_feat_df.iloc[row_number, :]
-    plot_scatter_3d(failed_bearings_normal, row)
 
     ################################################
     # choosing features based on itertools results #
     # with silhouette plotting                     #
     ################################################
 
-    # INTRODUCING SILHOUETTE PLOTTING
     n_clusters = [2, 3, 4, 5, 6]
-    for idx, row in three_feat_df.iloc[300:, :].iterrows():
+    for idx, row in three_feat_df.iterrows():
         f1 = row.feature_1
         f2 = row.feature_2
         f3 = row.feature_3
         df = failed_bearings_normal[[f1, f2, f3]]
         plot_silhouette_samples(df, n_clusters, idx)
 
-    # DECIDE ON THREE FEATURES, THEN ELBOW PLOT IT
-    # ELBOWING
-    # plot_elbow_kmeans(df3, n_clusters, 'elbow plot')
+    three_feat_df_cleaned = drop_rows_twoclusters_few_datapoints(three_feat_df)
+    n_clusters = [2, 3, 4, 5, 6]
+
+    # plot silhouette plots with samples
+    row = three_feat_df_cleaned.loc[7214, :]
+    f1 = row.feature_1
+    f2 = row.feature_2
+    f3 = row.feature_3
+    cluster_n = row.cluster_number
+    print(cluster_n)
+    df = failed_bearings_normal[[f1, f2, f3]]
+    plot_silhouette_samples(df, n_clusters, 7214)
+
+    df3 = failed_bearings_normal[['a2_y_mean', 'a1_x_ff_range', 'a1_x_fft_max']]
+    plot_elbow_kmeans(df3, n_clusters, 'elbow plot for three combined features: a2_y_mean, a1_x_ff_range, a1_x_fft_max')
 
 
-
-    #############################################################################
-    # REMINDER IF YOU LOOK FOR COMBO_: reduce the amount of features, clusters! #
-    # 3 picks from 59 leads to 32.509 options, multiplied by n_clusters!        #
-    # 3 picks from 50 leads to 19.600 options, multiplied by n_clusters!        #
-    #############################################################################
+    # try 6 features

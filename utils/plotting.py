@@ -10,6 +10,7 @@ from sklearn.metrics import silhouette_score, silhouette_samples
 
 
 def plot_elbow_kmeans(df: pd.DataFrame, n_clusters: list, title: str) -> None:
+    fig, ax = plt.subplots(figsize=(12, 8))
     distances = []
     silo_scores = []
     for cluster_amount in n_clusters:
@@ -25,6 +26,7 @@ def plot_elbow_kmeans(df: pd.DataFrame, n_clusters: list, title: str) -> None:
 
 
 def plot_scatter_cluster(df: pd.DataFrame, cluster_amount: int, title: str) -> None:
+    fig, ax = plt.subplots(figsize=(12, 8))
     kmeans = KMeans(random_state=42, n_clusters=cluster_amount).fit(df)
     df['cluster'] = kmeans.labels_
     sil_score = silhouette_score(df, kmeans.labels_)
@@ -69,15 +71,48 @@ def plot_silhouette_samples(df: pd.DataFrame, n_clusters: list, row_index: int) 
             ax.text(-0.05, y_lower + 0.5 * size_cluster_idx, str(idx))
             y_lower = y_upper + 10  # 10 for the 0 samples
 
-        ax.set_title("The silhouette plot for the various clusters.")
-        ax.set_xlabel("Silhouette coefficient values")
+        ax.set_title("Silhouette plot")
+        ax.set_xlabel("Silhouette coefficients")
+        ax.set_ylabel("Cluster label")
+        ax.axvline(x=silhouette_score_df, color="red", linestyle="--")
+        ax.set_yticks([])
+        ax.set_xticks([-0.1, 0, 0.2, 0.4, 0.6, 0.8, 1])
+        plt.show()
+
+
+def plot_silhouette_samples_one_cluster_number(df: pd.DataFrame, cluster_n: int, row_index: int) -> None:
+    silhouette_scores_n_clusters = []
+    fig, ax = plt.subplots(figsize=(12, 7))
+    ax.set_xlim([-0.1, 1])
+    ax.set_ylim([0, len(df) + (cluster_n+1) * 10])
+
+    kmeans = KMeans(n_clusters=cluster_n, random_state=42)
+    cluster_labels = kmeans.fit_predict(df)
+    silhouette_score_df = silhouette_score(df, cluster_labels)
+    print("For n_clusters =", cluster_n, "The average silhouette_score is :", silhouette_score_df)
+    silhouette_scores_n_clusters.append(silhouette_score_df)
+    sample_silhouette_values = silhouette_samples(df, cluster_labels)
+
+    y_lower = 10
+    for idx in range(cluster_n):
+        in_cluster_silhouette_values = sample_silhouette_values[kmeans.labels_==idx]
+        in_cluster_silhouette_values.sort()
+        size_cluster_idx = in_cluster_silhouette_values.shape[0]
+        y_upper = y_lower + size_cluster_idx
+        ax.fill_betweenx(np.arange(y_lower, y_upper),
+                              0, in_cluster_silhouette_values,
+                              alpha=0.7)
+        ax.text(-0.05, y_lower + 0.5 * size_cluster_idx, str(idx))
+        y_lower = y_upper + 10  # 10 for the 0 samples
+
+        ax.set_title("silhouette plot")
+        ax.set_xlabel("Silhouette coefficients")
         ax.set_ylabel("Cluster label")
         # The vertical line for average silhouette score of all the values
         ax.axvline(x=silhouette_score_df, color="red", linestyle="--")
         ax.set_yticks([])
         ax.set_xticks([-0.1, 0, 0.2, 0.4, 0.6, 0.8, 1])
-        title = f"row {row_index} " \
-                f"with n_clusters = {n_cluster}"
+        title = f"row {row_index} with n_clusters = {cluster_n}"
         plt.suptitle(title,
                      fontsize=14, fontweight='bold')
         plt.show()
@@ -120,6 +155,33 @@ def plot_one_2d_with_silhouette_score_based_on_features(feature_1, feature_2,
     sil_sco = df_to_plot.silhouette_score
     sns.scatterplot(x=original_df[feature_1],
                     y=original_df[feature_2],
+                    hue=labels,
+                    palette='Set2')
+    plt.title('silhouette score: ' + str(round((sil_sco), 2)))
+    plt.show()
+
+
+def plot_2d_with_silhouette_score(df: pd.DataFrame, row: int) -> None:
+    for idx, row in df.iloc[row, :].iterrows():
+        f1 = row.feature_1
+        f2 = row.feature_2
+        labels = literal_eval(row.labels)
+        sil_sco = row.silhouette_score
+        sns.scatterplot(x=df[row.feature_1],
+                        y=df[row.feature_2],
+                         hue=labels,
+                         palette='Set2')
+        plt.title(str(sil_sco))
+        plt.show()
+
+
+def plot_one_2d_with_silhouette_score_eval(df: pd.DataFrame, original_df, row: int) -> None:
+    f1 = df.iloc[row].feature_1
+    f2 = df.iloc[row].feature_2
+    labels = literal_eval(df.iloc[row].labels)
+    sil_sco = df.iloc[row].silhouette_score
+    sns.scatterplot(x=original_df[f1],
+                    y=original_df[f2],
                     hue=labels,
                     palette='Set2')
     plt.title('silhouette score: ' + str(round((sil_sco), 2)))
