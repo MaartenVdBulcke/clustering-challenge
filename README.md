@@ -43,8 +43,13 @@ This was my proces to find the best two features for clustering:
 * Finally, I plotted the numbers of clusters versus the cluster-distances, to be able to determine the suiting amount of clusters. 
 
 I have found two possible combinations: 
-### a1_y_mean + a2_x_mean
+### features: a1_y_mean + a2_x_mean
+![](visuals/kmeans_2d_scatter_a1ymean_a2xmean.PNG)
+![](visuals/kmeans model on features a1_y_mean and a2_x_mean.png)
 
+### features: a2_x_cumul + a2_x_mean
+![](visuals/2.elbow_kmeans_second_option.PNG)
+![](visuals/scatterplot_kmeans_second_option.PNG)
 
 
 | Column name of feature | Change made                  | Reason                                                                                        |
